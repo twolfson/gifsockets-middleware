@@ -1,6 +1,6 @@
 {
   "name": "gifsockets-middleware",
-  "description": "Connect middleware for gifsockets",
+  "description": "Set of HTTP middlewares for gifsockets",
   "version": "0.1.0",
   "homepage": "https://github.com/twolfson/gifsockets-middleware",
   "author": {

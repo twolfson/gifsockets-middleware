@@ -1,13 +1,26 @@
 # gifsockets-middleware [![Build status](https://travis-ci.org/twolfson/gifsockets-middleware.png?branch=master)](https://travis-ci.org/twolfson/gifsockets-middleware)
 
-Connect middleware for gifsockets
+Set of HTTP middlewares for gifsockets
 
 ## Getting Started
 Install the module with: `npm install gifsockets-middleware`
 
 ```javascript
-var gifsockets_middleware = require('gifsockets-middleware');
-gifsockets_middleware.awesome(); // "awesome"
+var GifsocketMiddleware = require('gifsockets-middleware');
+var middlewares = GifsocketMiddleware({width: 200, height: 200});
+
+// middlewares is an object with 4 specific middlewares
+{
+  openImage
+  writePixelsToImages
+  writeTextToImages
+  closeOpenImages
+}
+
+// If you want to load a specific middleware, you can do so
+var openImageMiddleware = require('gifsockets-middleware/lib/middlewares/open-image');
+var openImage = openImageMiddleware(gifsocket);
+// openImage has the same behavior as that returned from `GifsocketMiddleware`
 ```
 
 ## Documentation
