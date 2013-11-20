@@ -6,10 +6,22 @@ Set of HTTP middlewares for gifsockets
 Install the module with: `npm install gifsockets-middleware`
 
 ```javascript
+// TODO: Put this into /docs and try it out
 var GifsocketMiddleware = require('gifsockets-middleware');
 var middlewares = GifsocketMiddleware({width: 200, height: 200});
+var express = require('express');
+var app = express();
 
-// middlewares is an object with 4 specific middlewares
+// middlewares returns an object containing 4 middlewares
+// openImage writes the beginning of a .gif and leaves `res` open
+app.get('/image.gif', middlewares.openImage);
+
+// writePixelsToImages writes a new frame to all open `res` from openImage
+var bodyParser = express.bodyParser();
+app.post('/image/pixels', bodyParser, middlewares.writePixelsToImages);
+
+// TODO: Document /image/text + requirement of phantomjs-pixel-server
+// TODO: Document /image/close
 {
   openImage
   writePixelsToImages
