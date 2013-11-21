@@ -13,26 +13,24 @@ var express = require('express');
 var app = express();
 
 // middlewares returns an object containing 4 middlewares
-// openImage writes the beginning of a .gif and leaves `res` open
+// `openImage` writes the beginning of a .gif and leaves `res` open
 app.get('/image.gif', middlewares.openImage);
 
-// writePixelsToImages writes a new frame to all open `res` from openImage
+// `writePixelsToImages` writes a new frame to all open `res` from openImage
 var bodyParser = express.bodyParser();
 app.post('/image/pixels', bodyParser, middlewares.writePixelsToImages);
 
-// TODO: Document /image/text + requirement of phantomjs-pixel-server
-// TODO: Document /image/close
-{
-  openImage
-  writePixelsToImages
-  writeTextToImages
-  closeOpenImages
-}
+// `writeTextToImages` accepts a string of text and writes a new frame
+// This requires running `phantomjs-pixel-server`
+app.post('/image/text', bodyParser, middlewares.writeTextToImages);
+
+// `closeOpenImages` closes all active images opened by `openImage`
+app.post('/image/close', bodyParser, middlewares.closeOpenImages);
 
 // If you want to load a specific middleware, you can do so
 var openImageMiddleware = require('gifsockets-middleware/lib/middlewares/open-image');
 var openImage = openImageMiddleware(gifsocket);
-// openImage has the same behavior as that returned from `GifsocketMiddleware`
+// `openImage` has the same behavior as that returned from `GifsocketMiddleware`
 ```
 
 ## Documentation
