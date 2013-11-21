@@ -29,7 +29,9 @@
     "test": "mocha"
   },
   "dependencies": {
-    "gifsockets": "~0.1.0"
+    "gifsockets": "~0.1.0",
+    "request": "~2.27.0",
+    "function-to-string": "~0.2.0"
   },
   "devDependencies": {
     "mocha": "~1.11.0",
