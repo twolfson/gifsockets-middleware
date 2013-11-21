@@ -38,10 +38,41 @@ var openImage = openImageMiddleware(gifsocket);
 ```
 
 ## Documentation
-_(Coming soon)_
+`gifsockets-middleware` returns `GifsocketMiddleware` as its `module.exports`
 
-## Examples
-_(Coming soon)_
+### `GifsocketMiddleware(options)`
+Function that generates an object of middlewares for `gifsockets`
+
+- options `Object`
+    - width `Number` Width of the output GIF/`gifsocket`
+    - height `Number` Height of the output GIF/`gifsocket`
+- Returns an object containing
+    - `openImage` middleware
+    - `writePixelsToImages` middleware
+    - `writeTextToImages` middleware
+    - `closeOpenImages` middleware
+
+### `openImage` middleware
+Middleware that will maintain an open connection such that it can write additional GIF frames.
+
+Function signature is `function (req, res, next) {}`
+
+This does not expect any information on `req`/`res` and will not callback to `next`.
+
+### `writePixelsToImages` middleware
+Middleware that will write a new GIF frame with the provided pixels.
+
+Function signature is `function (req, res, next) {}`
+
+If `req.rgbPixels` exists, we will draw a GIF frame with the pixel values.
+
+> `req.rgbPixels` is expected to be an stringified array of rgb pixels; `[0, 1, 2, 3, 4, 5]` is 2 pixels with `r: 0, g: 1, b: 2` and `r: 3, g: 4, b: 5`
+
+If `req.rgbPixels` is not found, we look for `req.rgbaPixels` or `req.body`. If either of these is found, we will draw a GIF frame with the pixel values.
+
+> `req.rgbaPixels`/`req.body` is expected to be an stringified array of rgba pixels; `[0, 1, 2, 3, 4, 5, 6, 7]` is 2 pixels with `r: 0, g: 1, b: 2, a: 3` and `r: 4, g: 5, b: 6, a: 7`
+
+### `writeTextToImages` middleware
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint via [grunt](https://github.com/gruntjs/grunt) and test via `npm test`.
