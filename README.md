@@ -72,6 +72,8 @@ If `req.rgbPixels` is not found, we look for `req.rgbaPixels` or `req.body`. If 
 
 > `req.rgbaPixels`/`req.body` is expected to be an stringified array of rgba pixels; `[0, 1, 2, 3, 4, 5, 6, 7]` is 2 pixels with `r: 0, g: 1, b: 2, a: 3` and `r: 4, g: 5, b: 6, a: 7`
 
+This will reply with a `204` when it is complete.
+
 ### `writeTextToImages` middleware
 **This depends on [phantomjs-pixel-server][] running as another process.**
 
@@ -96,6 +98,15 @@ If `req.body` is provided, we will parse it via [`querystring.parse`][] and use 
 [`querystring.parse`]: http://nodejs.org/api/querystring.html
 [CSS color]: https://developer.mozilla.org/en-US/docs/Web/CSS/color
 [`fillStyle`]: http://www.w3.org/TR/2dcontext/#fill-and-stroke-styles
+
+This will reply with a `204` when it is complete.
+
+### `closeOpenImages` middleware
+Middleware that iterates over open connections, writes GIF footer, and closes connection.
+
+Function signature is `function (req, res, next) {}`
+
+This will reply with a `204` when it is complete.
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint via [grunt](https://github.com/gruntjs/grunt) and test via `npm test`.
