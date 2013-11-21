@@ -11,7 +11,6 @@ This is part of the [gifsockets project][]; it acts as a plug and play middlewar
 Install the module with: `npm install gifsockets-middleware`
 
 ```javascript
-// TODO: Put this into /docs and try it out
 var GifsocketMiddleware = require('gifsockets-middleware');
 var middlewares = GifsocketMiddleware({width: 200, height: 200});
 var express = require('express');
