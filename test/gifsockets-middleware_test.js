@@ -79,7 +79,7 @@ describe('A server using gifsockets-middleware', function () {
     this.app.close(done);
   });
 
-  describe('receiving a request', function () {
+  describe.only('receiving a request', function () {
     openImage();
     before(function saveGifData () {
       this._beforeFrameData = this.gifData;
@@ -87,8 +87,9 @@ describe('A server using gifsockets-middleware', function () {
     before(function writeNewFrame (done) {
       this.timeout(5000);
       request({
-        url: 'http://localhost:8050/image/text',
-        method: 'POST',
+        url: 'http://localhost:8050/',
+        method: 'PUT',
+        // TODO: This is going to be fun to parse...
         form: {
           text: 'Hello',
           'font-family': 'Arial',
@@ -122,7 +123,7 @@ describe('A server using gifsockets-middleware', function () {
     });
   });
 
-  describe.only('writing a JSON pixel frame', function () {
+  describe('writing a JSON pixel frame', function () {
     openImage();
     imageUtils.loadRgbaImage('checkerboard.png');
     before(function writeJsonFrame (done) {
