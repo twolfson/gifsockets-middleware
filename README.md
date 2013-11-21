@@ -1,6 +1,11 @@
 # gifsockets-middleware [![Build status](https://travis-ci.org/twolfson/gifsockets-middleware.png?branch=master)](https://travis-ci.org/twolfson/gifsockets-middleware)
 
-Set of HTTP middlewares for gifsockets
+Set of HTTP middlewares for [gifsockets][]
+
+This is part of the [gifsockets project][]; it acts as a plug and play middleware that is used in the [demo][gifsockets project] but can be re-used anywhere.
+
+[gifsockets]: https://github.com/twolfson/gifsockets
+[gifsockets project]: https://github.com/twolfson/gifsockets-server
 
 ## Getting Started
 Install the module with: `npm install gifsockets-middleware`
