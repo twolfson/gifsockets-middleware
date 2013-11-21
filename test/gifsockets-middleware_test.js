@@ -89,7 +89,6 @@ describe('A server using gifsockets-middleware', function () {
       request({
         url: 'http://localhost:8050/',
         method: 'PUT',
-        // TODO: This is going to be fun to parse...
         form: {
           text: 'Hello',
           'font-family': 'Arial',
