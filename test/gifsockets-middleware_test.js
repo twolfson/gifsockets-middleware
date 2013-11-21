@@ -1,3 +1,4 @@
+var assert = require('assert');
 var http = require('http');
 var rawBody = require('raw-body');
 var request = require('request');
