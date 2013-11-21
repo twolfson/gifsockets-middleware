@@ -73,6 +73,29 @@ If `req.rgbPixels` is not found, we look for `req.rgbaPixels` or `req.body`. If 
 > `req.rgbaPixels`/`req.body` is expected to be an stringified array of rgba pixels; `[0, 1, 2, 3, 4, 5, 6, 7]` is 2 pixels with `r: 0, g: 1, b: 2, a: 3` and `r: 4, g: 5, b: 6, a: 7`
 
 ### `writeTextToImages` middleware
+**This depends on [phantomjs-pixel-server][] running as another process.**
+
+**Please read the documentation: https://github.com/twolfson/phantomjs-pixel-server**
+
+[phantomjs-pixel-server]: https://github.com/twolfson/phantomjs-pixel-server
+
+Middleware that will create and write a new GIF frame with the provided text parameters.
+
+Function signature is `function (req, res, next) {}`
+
+If `req.body` is provided, we will parse it via [`querystring.parse`][] and use the following parameters:
+
+- text `String` - Text to write to the canvas
+- background `String` - [CSS color][] background for the canvas (default "#000000")
+  - Any valid [CSS color][] is accepted, under the hood we are using [`fillStyle`][]
+- foreground `String` - [CSS color][] for text on the canvas (default "#BADA55")
+  - Any valid [CSS color][] is accepted, under the hood we are using [`fillStyle`][]
+- font-size `Number` - Size of the font to draw (default: 30)
+- font-family `String` - Font family to use on the canvas (default: "Impact")
+
+[`querystring.parse`]: http://nodejs.org/api/querystring.html
+[CSS color]: https://developer.mozilla.org/en-US/docs/Web/CSS/color
+[`fillStyle`]: http://www.w3.org/TR/2dcontext/#fill-and-stroke-styles
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint via [grunt](https://github.com/gruntjs/grunt) and test via `npm test`.
