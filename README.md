@@ -29,7 +29,7 @@ app.post('/image/pixels', bodyParser, middlewares.writePixelsToImages);
 app.post('/image/text', bodyParser, middlewares.writeTextToImages);
 
 // `closeOpenImages` closes all active images opened by `openImage`
-app.post('/image/close', bodyParser, middlewares.closeOpenImages);
+app.post('/image/close', middlewares.closeOpenImages);
 
 // If you want to load a specific middleware, you can do so
 var openImageMiddleware = require('gifsockets-middleware/lib/middlewares/open-image');

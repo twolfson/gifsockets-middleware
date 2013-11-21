@@ -1,29 +1,45 @@
+var http = require('http');
+var rawBody = require('raw-body');
 var GifsocketsMiddleware = require('../');
 
-var middlewares = GifsocketMiddleware({width: 200, height: 200});
-var http = require('http');
-
 describe('A server using gifsockets-middleware', function () {
-  before(function startGifsocketsMiddleware() {
-    // TODO: Use very silly routing; make sure this can run in a non-express env
-    // middlewares returns an object containing 4 middlewares
-    // `openImage` writes the beginning of a .gif and leaves `res` open
-    app.get('/image.gif', middlewares.openImage);
+  before(function startGifsocketsMiddleware (done) {
+    // Create a set of middlewares and server
+    var middlewares = GifsocketMiddleware({width: 200, height: 200});
+    var app = http.createServer(function (req, res) {
+      // DEV: We are intentionally not using express to very it works at any level
+      if (req.method === 'GET') {
+        middlewares.openImage(req, res);
+      } else if (req.method === 'DELETE') {
+        middlewares.closeOpenImages(req, res);
+      } else {
+        // Parse the body
+        rawBody(req, function (err, buff) {
+          if (err) {
+            throw err;
+          }
 
-    // `writePixelsToImages` writes a new frame to all open `res` from openImage
-    var bodyParser = express.bodyParser();
-    app.post('/image/pixels', bodyParser, middlewares.writePixelsToImages);
+          // Save the buffer to the request
+          req.body = buff;
 
-    // `writeTextToImages` accepts a string of text and writes a new frame
-    // This requires running `phantomjs-pixel-server`
-    app.post('/image/text', bodyParser, middlewares.writeTextToImages);
+          // Forward the request appropriately
+          if (req.method === 'POST') {
+            middlewares.writePixelsToImages(req, res);
+          // DEV: This is a catch-all case but iddealy PUT
+          } else {
+            middlewares.writeTextToImages(req, res);
+          }
+        });
+      }
+    });
+    app.listen(8050);
 
-    // `closeOpenImages` closes all active images opened by `openImage`
-    app.post('/image/close', bodyParser, middlewares.closeOpenImages);
-  }
-
-  before(function () {
-
+    // Save the app for later
+    this.app = app;
+    setTimeout(done, 100);
+  });
+  after(function stopGifsocketsMiddelware (done) {
+    this.app.close(done);
   });
 
   it('', function () {
