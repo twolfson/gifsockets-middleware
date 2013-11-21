@@ -22,12 +22,13 @@ exports.debug = function (filename) {
     });
   }
 
-  if (process.env.TRAVIS) {
+  if (false && process.env.TRAVIS) {
     before(function outputDebugImage () {
       console.log(encodeURIComponent(this.gifData));
       // Counter to it:
+      // var fs = require('fs');
       // var data = "<%= data %>";
-      // fs.writeFileSync('tmp.png', decodeURIComponent(data), 'binary');
+      // fs.writeFileSync('tmp.gif', decodeURIComponent(data), 'binary');
     });
   }
 };
