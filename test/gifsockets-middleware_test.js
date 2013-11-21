@@ -1,4 +1,5 @@
 var assert = require('assert');
+var fs = require('fs');
 var http = require('http');
 var rawBody = require('raw-body');
 var request = require('request');
@@ -123,7 +124,7 @@ describe('A server using gifsockets-middleware', function () {
 
   describe('writing a JSON pixel frame', function () {
     openImage();
-    imageUtils.loadRgbaImage(__dirname + '/test-files/checkerboard.png');
+    imageUtils.loadRgbaImage('checkerboard.png');
     before(function writeJsonFrame (done) {
       request({
         url: 'http://localhost:8050/',
