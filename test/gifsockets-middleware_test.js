@@ -122,7 +122,7 @@ describe('A server using gifsockets-middleware', function () {
     });
   });
 
-  describe('writing a JSON pixel frame', function () {
+  describe.only('writing a JSON pixel frame', function () {
     openImage();
     imageUtils.loadRgbaImage('checkerboard.png');
     before(function writeJsonFrame (done) {

@@ -17,6 +17,7 @@ exports.loadRgbaImage = function (filename) {
 exports.debug = function (filename) {
   if (process.env.DEBUG_TEST) {
     before(function saveDebugImage () {
+      console.log('writing', filename);
       try { fs.mkdirSync(__dirname + '/../actual-files/'); } catch (e) {}
       fs.writeFileSync(__dirname + '/../actual-files/' + filename, this.streamData, 'binary');
     });
