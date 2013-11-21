@@ -21,4 +21,13 @@ exports.debug = function (filename) {
       fs.writeFileSync(__dirname + '/../actual-files/' + filename, this.gifData, 'binary');
     });
   }
+
+  if (process.env.TRAVIS) {
+    before(function outputDebugImage () {
+      console.log(encodeURIComponent(this.gifData));
+      // Counter to it:
+      // var data = "<%= data %>";
+      // fs.writeFileSync('tmp.png', decodeURIComponent(data), 'binary');
+    });
+  }
 };
