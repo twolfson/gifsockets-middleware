@@ -1,11 +1,13 @@
 var http = require('http');
 var rawBody = require('raw-body');
+var serverUtils = require('./utils/server');
 var GifsocketsMiddleware = require('../');
 
 describe('A server using gifsockets-middleware', function () {
+  serverUtils.runPixelServer();
   before(function startGifsocketsMiddleware (done) {
     // Create a set of middlewares and server
-    var middlewares = GifsocketMiddleware({width: 200, height: 200});
+    var middlewares = GifsocketsMiddleware({width: 200, height: 200});
     var app = http.createServer(function (req, res) {
       // DEV: We are intentionally not using express to very it works at any level
       if (req.method === 'GET') {

@@ -38,7 +38,8 @@
     "grunt": "~0.4.1",
     "grunt-contrib-jshint": "~0.6.0",
     "grunt-contrib-watch": "~0.4.0",
-    "raw-body": "~1.0.1"
+    "raw-body": "~1.0.1",
+    "phantomjs-pixel-server": "~0.1.0"
   },
   "keywords": [
     "gifsockets",
